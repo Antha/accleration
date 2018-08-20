@@ -22,10 +22,29 @@ function getAcceleration() {
       accelerometerSuccess, accelerometerError);
 
    function accelerometerSuccess(acceleration) {
-      alert('Acceleration X: ' + acceleration.x + '\n' +
-         'Acceleration Y: ' + acceleration.y + '\n' +
-         'Acceleration Z: ' + acceleration.z + '\n' +
-         'Timestamp: '      + acceleration.timestamp + '\n');
+      $("#val_x").html(acceleration.x);  
+      $("#val_y").html(acceleration.y);  
+      $("#val_z").html(acceleration.z); 
+
+      if (typeof previousAcceleration == "undefined" || previousAcceleration == null) {
+            previousAcceleration = acceleration;
+      }
+
+      var accelerationDelta = {
+            x: acceleration.x - previousAcceleration.x,
+            y: acceleration.y - previousAcceleration.y,
+            z: acceleration.z - previousAcceleration.z
+        };
+      
+      var magnitude = Math.sqrt(
+            Math.pow(accelerationDelta.x, 2) +
+            Math.pow(accelerationDelta.y, 2) +
+            Math.pow(accelerationDelta.z, 2)
+        ); 
+
+      previousAcceleration = acceleration;
+
+      $("#val_mag").html(magnitude); 
    };
 
    function accelerometerError() {
@@ -74,10 +93,10 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        //document.getElementById("getAcceleration").addEventListener("click", getAcceleration);
+        //document.getElementById("watchAcceleration").addEventListener("click", watchAcceleration);
 
-        document.getElementById("getAcceleration").addEventListener("click", getAcceleration);
-        document.getElementById("watchAcceleration").addEventListener("click", watchAcceleration);
+        setInterval(getAcceleration,500);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

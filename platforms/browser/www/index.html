@@ -46,12 +46,15 @@
     <div class="app">
         <h1>PhoneGap</h1>
         <div id="deviceready" class="blink">
-            <button id = "getAcceleration">GET ACCELERATION</button>
-            <button id = "watchAcceleration">WATCH ACCELERATION</button>
+            X = <span id="val_x"></span> <br/>
+            Y = <span id="val_y"></span> <br/>
+            Z = <span id="val_z"></span> <br/>
+            Mag = <span id="val_mag"></span> <br/>
         </div>
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript">
         app.initialize();
     </script>
