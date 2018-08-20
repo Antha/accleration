@@ -45,6 +45,14 @@ function getAcceleration() {
       previousAcceleration = acceleration;
 
       $("#val_mag").html(magnitude); 
+
+      if(magnitude > 1){
+        var audio = new Audio('fire.wav');
+        audio.play();
+        $("#alarm").html("<img src='alarm.gif' width='100'/>")
+      }else{
+        $("#alarm").html("");
+      }
    };
 
    function accelerometerError() {
