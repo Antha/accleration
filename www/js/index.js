@@ -129,7 +129,12 @@ var app = {
         //document.getElementById("watchAcceleration").addEventListener("click", watchAcceleration);
 
         setInterval(getAcceleration,500);
-        alert("DEVICE NAME"+device.name);
+        alert('Device Name: '    + device.name + '<br />' +
+                            'Device Model: '    + device.model    + '<br />' +
+                            'Device Cordova: '  + device.cordova  + '<br />' +
+                            'Device Platform: ' + device.platform + '<br />' +
+                            'Device UUID: '     + device.uuid     + '<br />' +
+                            'Device Version: '  + device.version  + '<br />');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
