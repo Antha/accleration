@@ -43,14 +43,26 @@
 </head>
 
 <body>
+    <div class="note">
+      PETUNJUK <br/>
+      1.Letakan Hp Di Tempat Yang Tenang <br/>
+      2.Tekan Tombol Off Sehingga Menjadi On<br/>
+      3.Langsung Kembali Ke Home Tanpa Menutup Aplikasi <br/>
+      4.Diamkan saja hapenya. Hp akan berbunyi jika ada getaran <br/>
+      5.Terima Kasih 
+    </div>
+
     <div class="app">
         <h1>ACC ALARM</h1>
+        <button id="setOn">OFF</button>
         <div id="alarm"></div>
+        <div style="font-size: 15px; font-weight: bold">
+          Magnitude = <span id="val_mag"></span>
+        </div>
         <div id="deviceready" class="blink">
-            X = <span id="val_x"></span> <br/>
-            Y = <span id="val_y"></span> <br/>
-            Z = <span id="val_z"></span> <br/>
-            Mag = <span id="val_mag"></span> <br/>
+            X Position = <span id="val_x"></span> <br/>
+            Y Position = <span id="val_y"></span> <br/>
+            Z Position = <span id="val_z"></span> <br/>
         </div>
     </div>
     <script type="text/javascript" src="cordova.js"></script>

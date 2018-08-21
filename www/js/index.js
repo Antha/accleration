@@ -17,6 +17,8 @@
  * under the License.
  */
 
+setOn = 0;
+
 function getAcceleration() {
    navigator.accelerometer.getCurrentAcceleration(
       accelerometerSuccess, accelerometerError);
@@ -46,13 +48,15 @@ function getAcceleration() {
       previousAcceleration = acceleration;
 
       $("#val_mag").html(magnitude); 
-
-      if(magnitude > 1){
-        var audio = new Audio('fire.wav');
-        audio.play();
-        $("#alarm").html("<img src='alarm.gif' width='100'/>")
-      }else{
-        $("#alarm").html("");
+      
+      if(setOn == 1){
+          if(magnitude > 1){
+            var audio = new Audio('fire.wav');
+            audio.play();
+            $("#alarm").html("<img src='alarm.gif' width='100'/>")
+          }else{
+            $("#alarm").html("");
+          }
       }
    };
 
@@ -85,11 +89,28 @@ function watchAcceleration() {
     
 }
 
+function switchx(){
+    //alert($("#setOn").css("background-color"));
+    if($("#setOn").css("background-color") == "rgb(255, 0, 0)"){
+            $("#setOn").css("background","green");
+            $("#setOn").html("ON");
+            setOn = 1;
+        }else{
+            $("#setOn").css("background","red");
+            $("#setOn").html("OFF");
+            setOn = 0;
+        }
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
         this.insertLogData();
+
+        $("#setOn").click(function(){
+            switchx();
+        });
     },
     // Bind Event Listeners
     //
@@ -126,7 +147,6 @@ var app = {
 
         setInterval(getAcceleration,500);
 
-        
         $.ajax({
              type: "POST",
              url:"https://zennagames.000webhostapp.com/android_data/insert.php",
@@ -152,6 +172,7 @@ var app = {
         });
        
     },
+
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
@@ -164,3 +185,4 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
