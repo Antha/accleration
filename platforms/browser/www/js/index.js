@@ -22,6 +22,7 @@ function getAcceleration() {
       accelerometerSuccess, accelerometerError);
 
    function accelerometerSuccess(acceleration) {
+
       $("#val_x").html(acceleration.x);  
       $("#val_y").html(acceleration.y);  
       $("#val_z").html(acceleration.z); 
@@ -88,6 +89,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        //this.insertLogData();
     },
     // Bind Event Listeners
     //
@@ -95,6 +97,28 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+
+    insertLogData : function(){
+        $.ajax({
+             type: "POST",
+             url:"http://localhost/phonegap/database/insert.php",
+             data: dataString,
+             crossDomain: true,
+             cache: false,
+             beforeSend: function(){
+              $("#insert").val('Connecting...');
+             },
+             success: function(data){
+                 if(data == "success"){
+                   alert("inserted");
+                   $("#insert").val('submit');
+                 }
+                 else if(data=="error"){
+                   alert("error");
+                 }
+             }
+        });
     },
     // deviceready Event Handler
     //
@@ -105,6 +129,7 @@ var app = {
         //document.getElementById("watchAcceleration").addEventListener("click", watchAcceleration);
 
         setInterval(getAcceleration,500);
+        alert("DEVICE NAME"+device.name);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
