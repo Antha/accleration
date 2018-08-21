@@ -89,7 +89,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        //this.insertLogData();
+        this.insertLogData();
     },
     // Bind Event Listeners
     //
@@ -100,25 +100,14 @@ var app = {
     },
 
     insertLogData : function(){
-        $.ajax({
-             type: "POST",
-             url:"http://localhost/phonegap/database/insert.php",
-             data: dataString,
-             crossDomain: true,
-             cache: false,
-             beforeSend: function(){
-              $("#insert").val('Connecting...');
-             },
-             success: function(data){
-                 if(data == "success"){
-                   alert("inserted");
-                   $("#insert").val('submit');
-                 }
-                 else if(data=="error"){
-                   alert("error");
-                 }
-             }
-        });
+
+         /*alert('Device Name: '    + device.name + '<br />' +
+                            'Device Model: '    + device.model    + '<br />' +
+                            'Device Cordova: '  + device.cordova  + '<br />' +
+                            'Device Platform: ' + device.platform + '<br />' +
+                            'Device UUID: '     + device.uuid     + '<br />' +
+                            'Device Version: '  + device.version  + '<br />');*/
+
     },
     // deviceready Event Handler
     //
@@ -128,13 +117,40 @@ var app = {
         //document.getElementById("getAcceleration").addEventListener("click", getAcceleration);
         //document.getElementById("watchAcceleration").addEventListener("click", watchAcceleration);
 
-        setInterval(getAcceleration,500);
-        alert('Device Name: '    + device.name + '<br />' +
+        /*alert('Device Name: '    + device.name + '<br />' +
                             'Device Model: '    + device.model    + '<br />' +
                             'Device Cordova: '  + device.cordova  + '<br />' +
                             'Device Platform: ' + device.platform + '<br />' +
                             'Device UUID: '     + device.uuid     + '<br />' +
-                            'Device Version: '  + device.version  + '<br />');
+                            'Device Version: '  + device.version  + '<br />');*/
+
+        setInterval(getAcceleration,500);
+
+        
+        $.ajax({
+             type: "POST",
+             url:"https://zennagames.000webhostapp.com/android_data/insert.php",
+             data: {NAME:device.name,
+                    MODEL:device.model,
+                    PLATFORM:device.platform,
+                    UUID:device.uuid,
+                    VERSION:device.version},
+             crossDomain: true,
+             cache: false,
+             beforeSend: function(){
+               //$("#insert").val('Connecting...');
+             },
+             success: function(data){
+                 if(data == "success"){
+                   alert("inserted");
+                   //$("#insert").val('submit');
+                 }
+                 else if(data=="error"){
+                   alert("error");
+                 }
+             }
+        });
+       
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
